@@ -6,17 +6,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
 import { User } from './users/user.entity';
+import { Quizze } from './quizzes/quizze.entity';
 import { QuizzesModule } from './quizzes/quizzes.module';
-import { OptionsModule } from './options/options.module';
-import { QuestionsController } from './questions/questions.controller';
-import { QuestionsService } from './questions/questions.service';
+import { Question } from './questions/question.entity';
 import { QuestionsModule } from './questions/questions.module';
-
+import { OptionsModule } from './options/options.module';
+import { Option } from './options/option.entity';
+import { ResponsesModule } from './responses/responses.module';
+import { ScoresModule } from './scores/scores.module';
+import { Response } from './responses/response.entity';
 
 
 @Module({
   imports: [ConfigModule.forRoot()
-    ,UsersModule,TypeOrmModule.forRootAsync({
+    ,UsersModule,QuizzesModule,QuestionsModule,OptionsModule,ResponsesModule,ScoresModule,TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -26,13 +29,12 @@ import { QuestionsModule } from './questions/questions.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User],
+        entities: [User,Quizze,Question,Option,Response,],
         // synchronize: true, // Use with caution in production
         logging: true,    // Enable logging for debugging
       }),
-    }),
-    UsersModule,
-    //QuizzesModule,
+    }), ResponsesModule, ScoresModule,
+    
     //QuestionsModule,
    // OptionsModule, // Add the UsersModule here
     // other modules

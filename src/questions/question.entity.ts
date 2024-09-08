@@ -1,14 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn } from "typeorm";
-
-
+import { join } from "path";
+import { Quizze } from "src/quizzes/quizze.entity";
+import { OneToMany,Column, Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn, ManyToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Option } from "src/options/option.entity";
+import { User } from "src/users/user.entity";
+import { Response } from "src/responses/response.entity";
 @Entity('questions')
 export class Question{
    
     @PrimaryGeneratedColumn("uuid")
     id:string;
 
-    @Column({type: "uuid"})
+    @Column({name:"quiz_id"})
     quiz_id:string;
+
+    @ManyToOne(()=>Quizze,(quizze)=>quizze.questions)
+    @JoinColumn({name: "quiz_id"})
+    quizze:Quizze;
+
+    @Column({name:"question_text"})
+    question_text:string;
 
     @Column({type:"enum" ,enum :["multiple_choice","true_false"]})
     question_type : "multiple_choice" | "true_false";
@@ -16,13 +26,32 @@ export class Question{
     @CreateDateColumn()
     created_at: Date;
   
-    @Column({ nullable: true })
-    created_by: string;
+    @Column({ name: 'created_by' })
+    createdById: string;
+  
+    @ManyToOne(() => User, (user) => user.createdQuestions)
+    @JoinColumn({ name: 'created_by' })
+    createdBy: User;
   
     @UpdateDateColumn()
     updated_at: Date;
+
+    @Column({ name: 'updated_by' })
+    updatedById: string;
   
-    @Column({ nullable: true })
-    updated_by: string;
+    @ManyToOne(() => User, (user) => user.updatedQuestions)
+    @JoinColumn({ name: 'updated_by' })
+    updatedBy: User;
+
+    @OneToMany(()=>Option,(options)=>options.question)
+     options:Option[];
+
+     
+     @OneToMany(()=>Response,(responses)=>responses.question)
+     responses:Response[];
+
+
+    
+  
 }
   

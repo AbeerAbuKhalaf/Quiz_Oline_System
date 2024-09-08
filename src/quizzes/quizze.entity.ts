@@ -1,6 +1,8 @@
-import { Entity,PrimaryGeneratedColumn,Column,UpdateDateColumn,CreateDateColumn,ManyToOne,JoinColumn } from "typeorm";
+import { Entity,PrimaryGeneratedColumn,Column,UpdateDateColumn,CreateDateColumn,ManyToOne,JoinColumn, OneToMany } from "typeorm";
 import { User } from "src/users/user.entity";
-Entity('quizzes')
+import { Question } from "src/questions/question.entity";
+import { Response } from "src/responses/response.entity";
+@Entity('quizzes')
 export class Quizze{
 
     @PrimaryGeneratedColumn("uuid")
@@ -12,22 +14,31 @@ export class Quizze{
     @Column({type:'text',name:"description"})
     description : string;
 
-    @CreateDateColumn({name:"created_at",type: "timestamp"})
-     created_at: Date;
+    @CreateDateColumn()
+    created_at: Date;
+  
+    @Column({ name: 'created_by' })
+    createdById: string;
+  
+    @ManyToOne(() => User, (user) => user.createdQ)
+    @JoinColumn({ name: 'created_by' })
+    createdBy: User;
+  
+    @UpdateDateColumn()
+    updated_at: Date;
 
-     @ManyToOne(() => User, { nullable: true })
-     @ManyToOne(()=>User)
-     @JoinColumn({ name: 'created_by' })
-     created_by: User;
+    @Column({ name: 'updated_by' })
+    updatedById: string;
+  
+    @ManyToOne(() => User, (user) => user.updatedQ)
+    @JoinColumn({ name: 'updated_by' })
+    updatedBy: User;
 
-     @UpdateDateColumn({name:"updated_at",type: "timestamp"})
-     updated_at: Date;
+     @OneToMany(()=>Question,(questions)=>questions.quizze)
+     questions:Question[];
 
-
-     @ManyToOne(() => User, { nullable: true })
-     @ManyToOne(()=>User)
-     @JoinColumn({ name: 'updated_by' })
-     updated_by: User;
+     @OneToMany(()=>Response,(responses)=>responses.quiz)
+     responses:Response[];
 
 
 }

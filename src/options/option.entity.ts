@@ -1,32 +1,48 @@
-import { Column, Entity, PrimaryGeneratedColumn,UpdateDateColumn,CreateDateColumn } from "typeorm";
-
+import { Column, Entity, PrimaryGeneratedColumn,UpdateDateColumn,CreateDateColumn,OneToMany,JoinColumn,ManyToOne } from "typeorm";
+import { User } from "src/users/user.entity";
+import { Question } from "src/questions/question.entity";
+import { Response } from "src/responses/response.entity";
 @Entity('options')
 export class Option{
 
       @PrimaryGeneratedColumn("uuid")
       id:string;
 
-      @Column()
-      question_id: string;
+      @Column({name:"question_id"})
+      question_id:string;
+  
+      @ManyToOne(()=>Question,(question)=>question.options)
+      @JoinColumn({name: "question_id"})
+      question:Question;
 
-      @Column()
+      @Column({type:"varchar",name:"option_text"})
       option_text: string;
 
-      @Column()
+      @Column({type:"boolean",name:"is_correct"})
       is_correct: boolean;
-      @Column()
-    created_at:Date;
 
-    @CreateDateColumn()
-    created_by:string;
+      @CreateDateColumn()
+      created_at: Date;
+    
+      @Column({ name: 'created_by' })
+      createdById: string;
+    
+      @ManyToOne(() => User, (user) => user.createdOption)
+      @JoinColumn({ name: 'created_by' })
+      createdBy: User;
+    
+      @UpdateDateColumn()
+      updated_at: Date;
+  
+      @Column({ name: 'updated_by' })
+      updatedById: string;
+    
+      @ManyToOne(() => User, (user) => user.updatedOption)
+      @JoinColumn({ name: 'updated_by' })
+      updatedBy: User;
 
-    @Column()
-    updated_at:Date;
-
-    @UpdateDateColumn()
-    updated_by:string;
-
-
-
-
+      @OneToMany(()=>Response,(responses)=>responses.option)
+       responses:Response[];
+  
+       
 }

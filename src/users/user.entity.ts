@@ -1,7 +1,9 @@
 // src/user/user.entity.ts
+import { Question } from 'src/questions/question.entity';
 import { Quizze } from 'src/quizzes/quizze.entity';
 import { Entity, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-
+import { Response } from 'src/responses/response.entity';
+import { Option } from 'src/options/option.entity';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -32,9 +34,32 @@ export class User {
   @ManyToOne(()=>User)
   @JoinColumn({ name: 'updated_by' })
   updated_by: User;
+  
+  @OneToMany(() => Quizze, (quiz) => quiz.createdBy)
+  createdQ: Quizze[];
 
- 
-  /*@OneToMany(()=>Quizze,quizze=>quizze.user)
-  quizzes:Quizze[];*/
+  @OneToMany(() => Quizze, (quiz) => quiz.updatedBy)
+  updatedQ:  Quizze[];
+
+  @OneToMany(() => Question, (question) => question.createdBy)
+  createdQuestions: Question[];
+
+  @OneToMany(() => Question, (question) => question.updatedBy)
+  updatedQuestions: Question[];
+
+  @OneToMany(() => Option, (option) => option.createdBy)
+  createdOption: Option[];
+
+  @OneToMany(() => Option, (option) => option.updatedBy)
+  updatedOption:  Option[];
+
+  @OneToMany(() => Response, (response) => response.createdBy)
+  createdResponse: Option[];
+
+  @OneToMany(() => Response, (response) => response.updatedBy)
+  updatedResponse:  Option[];
+
+  @OneToMany(()=>Response,(responses)=>responses.user)
+  responses:Response[];
 
 }

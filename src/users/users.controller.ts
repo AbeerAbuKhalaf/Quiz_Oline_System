@@ -1,10 +1,11 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Delete, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { Param,Get } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create_user.dto';
 import { Post,Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { UpdateUserDto } from './dtos/update-user.dto';
 @Controller('users')
 export class UsersController {
     constructor(private  userService: UsersService,private authService:AuthService ) {}
@@ -22,5 +23,18 @@ export class UsersController {
     
     // Pass the updated createUserDto to the user service to save it in the database
     return this.userService.create(createUserDto);
+  }
+
+  @Patch('/:id')
+  updateUser(@Param('id') id:string, @Body() body:UpdateUserDto){
+   return this.userService.update(id,body);
+  }
+
+  
+
+
+  @Delete('/:id')
+  removeUser(@Param('id') id:string){
+    return this.userService.remove(id);
   }
 }

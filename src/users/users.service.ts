@@ -19,4 +19,22 @@ export class UsersService {
     const user = this.userRepository.create(createUserDto);
     return this.userRepository.save(user);
   }
+
+  async update(id:string,attrs :Partial<User>){
+    const user=await this.findOne(id);
+    if(!user){
+      throw new Error ('User not found')
+    }
+    Object.assign(user,attrs);
+    return this.userRepository.save(user);
+
+  }
+
+  async remove(id:string){
+    const user = await this.findOne(id);
+    if(!user){
+      throw new Error('User not found');
+    }
+    return this.userRepository.remove(user);
+  }
 }
