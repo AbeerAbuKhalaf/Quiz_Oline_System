@@ -4,6 +4,7 @@ import { ResponsesService } from './responses.service';
 import { Response } from './response.entity';
 import { CreateResponseDto } from './dtos/create-response.dto';
 import { UpdateResponseDto } from './dtos/update-response.dto';
+import { MongoMissingCredentialsError } from 'typeorm';
 
 @Controller('responses')
 export class ResponsesController {
@@ -14,17 +15,18 @@ export class ResponsesController {
     return this.responseService.findOne(id);
   }
   @Post()
-  async createQuestion(@Body() createQuizrDto: CreateResponseDto) {
+  async createResponse(@Body() createQuizrDto: CreateResponseDto) {
     this.responseService.create(createQuizrDto);
   }
 
   @Patch('/:id')
-  updateQuestion(@Param('id') id: string, @Body() body: UpdateResponseDto) {
+  updateResponse(@Param('id') id: string, @Body() body: UpdateResponseDto) {
     return this.responseService.update(id, body);
   }
 
   @Delete('/:id')
-  removeQuestion(@Param('id') id: string) {
-    return this.questionService.remove(id);
+  removeResponse(@Param('id') id: string) {
+    return this.responseService.remove(id);
   }
 }
+

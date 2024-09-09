@@ -15,11 +15,20 @@ import { Option } from './options/option.entity';
 import { ResponsesModule } from './responses/responses.module';
 import { ScoresModule } from './scores/scores.module';
 import { Response } from './responses/response.entity';
+import { Score } from './scores/score.entity';
+import { JwtModule } from '@nestjs/jwt';
 
 
 @Module({
-  imports: [ConfigModule.forRoot()
-    ,UsersModule,QuizzesModule,QuestionsModule,OptionsModule,ResponsesModule,ScoresModule,TypeOrmModule.forRootAsync({
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    QuizzesModule,
+    QuestionsModule,
+    OptionsModule,
+    ResponsesModule,
+    ScoresModule,
+    TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -29,17 +38,19 @@ import { Response } from './responses/response.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [User,Quizze,Question,Option,Response,],
+        entities: [User, Quizze, Question, Option, Response, Score],
         // synchronize: true, // Use with caution in production
-        logging: true,    // Enable logging for debugging
+        logging: true, // Enable logging for debugging
       }),
-    }), ResponsesModule, ScoresModule,
-    
+    }),
+    ResponsesModule,
+    ScoresModule,
+
     //QuestionsModule,
-   // OptionsModule, // Add the UsersModule here
+    // OptionsModule, // Add the UsersModule here
     // other modules
   ],
-  controllers: [AppController,],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
