@@ -14,9 +14,9 @@ import { Response } from 'src/responses/response.entity';
 import { Score } from 'src/scores/score.entity';
 import { BaseEntity } from 'src/common/base.entity';
 @Entity('quizzes')
-export class Quizze extends BaseEntity {
-  //@PrimaryGeneratedColumn('uuid')
-  //id: string;
+export class Quizze {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false, name: 'title' })
   title: string;
@@ -24,8 +24,8 @@ export class Quizze extends BaseEntity {
   @Column({ type: 'text', name: 'description' })
   description: string;
 
- // @CreateDateColumn()
- // created_at: Date;
+  @CreateDateColumn()
+ created_at: Date;
 
   @Column({ name: 'created_by' })
   createdById: string;
@@ -34,8 +34,8 @@ export class Quizze extends BaseEntity {
   @JoinColumn({ name: 'created_by' })
   createdBy: User;
 
- // @UpdateDateColumn()
-  //updated_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
   @Column({ name: 'updated_by' })
   updatedById: string;

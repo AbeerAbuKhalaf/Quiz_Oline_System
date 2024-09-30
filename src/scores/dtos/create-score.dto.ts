@@ -3,22 +3,22 @@ import { IsNotEmpty, IsUUID, IsInt, Min } from 'class-validator';
 export class CreateScoreDto {
   @IsNotEmpty()
   @IsUUID()
-  readonly user_id: string;
+  user_id: string;
 
   @IsNotEmpty()
   @IsUUID()
-  readonly quiz_id: string;
+  quiz_id: string;
 
   @IsNotEmpty()
   @IsInt()
   @Min(0) // Assuming score should be a non-negative integer
-  readonly score: number;
-
-  @IsNotEmpty()
+  score: number;
+  
   @IsUUID()
-  readonly createdById: string;
-
   @IsNotEmpty()
+  created_by: string;
+
   @IsUUID()
-  readonly updatedById: string;
+  @IsNotEmpty()
+  updated_by: string;
 }

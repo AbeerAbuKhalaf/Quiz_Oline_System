@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString, IsUUID, IsEnum } from 'class-validator';
+import { Exclude } from 'class-transformer';
 
 export class CreateQuestionDto {
   @IsNotEmpty()
@@ -13,15 +14,17 @@ export class CreateQuestionDto {
   @IsString()
   question_text: string;
 
-  @IsNotEmpty()
+  
+  @IsString()
   @IsEnum(['multiple_choice', 'true_false'])
+  @IsNotEmpty()
   question_type: 'multiple_choice' | 'true_false';
 
   @IsOptional()
   @IsUUID()
-  created_by?: string;
+  created_by: string;
 
   @IsOptional()
   @IsUUID()
-  updated_by?: string;
+  updated_by: string;
 }

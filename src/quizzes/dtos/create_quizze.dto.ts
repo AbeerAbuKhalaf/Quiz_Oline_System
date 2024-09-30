@@ -2,8 +2,8 @@ import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateQuizDto {
   @IsUUID()
-  id:string;
-  
+  id: string;
+
   @IsNotEmpty()
   @IsString()
   title: string;
@@ -11,4 +11,11 @@ export class CreateQuizDto {
   @IsString()
   description?: string;
 
+  @IsUUID()
+  @IsNotEmpty()
+  created_by: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  updated_by: string;
 }

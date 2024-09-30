@@ -1,0 +1,16 @@
+{
+  "USER_NOT_FOUND": "المستخدم غير موجود",
+  "TOKEN INVALID": "انتهت صلاحيه الجلسه",
+  "FAILED TO CREATE USER": "فشل في إنشاء المستخدم",
+  "FAILED TO UPDATE USER": "فشل في تحديث البيانات",
+  "INVALID CREDENTIALS": "كلمه المرور او البريد الالكتروني  غير صحيحه ",
+  "QUIZE NOT FOUND": "الاختبار غير موجود",
+  "ADMIN ROLE": "انشاء الاختبار غير متاح لك",
+  "FAILED TO CREATE QUIZZE": "فشل بانشاء اختبار ",
+  "NO TOKEN": "لا توجد صلاحيه ",
+  "FAILED TO UPDATE QUIZZE": "فشل في التعديل على الاختبار ",
+  "QUESTION_NOT_FOUND":"السؤال غير موجود",
+  "FAILED TO CREATE Question":"فشل بادخال البيانات للسؤال ",
+  "OPTION_NOT_FOUND":" هذا الخيار المتعلق بالسؤال غير موجود",
+   "RESPONSE_NOT_FOUND":"الاجابه غير موجوده "
+}

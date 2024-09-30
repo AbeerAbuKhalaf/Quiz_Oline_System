@@ -1,0 +1,18 @@
+{
+  "USER_NOT_FOUND": "User not found",
+  "TOKEN INVALID": "Token is invalid or expired",
+  "FAILED TO CREATE USER": "Failed to create user",
+  "FAILED TO UPDATE USER": "Failed to update user",
+  "INVALID CREDENTIALS": "Invalid in Password or Email",
+  "QUIZE NOT FOUND": "Quize not found",
+  "ADMIN ROLE": "Admin role required to create a quiz",
+  "FAILED TO CREATE QUIZZE": "Failed to create quiz",
+  "NO TOKEN":"No token provided",
+  "FAILED TO UPDATE QUIZZE":"Failed to update quiz",
+  "QUESTION_NOT_FOUND":"Question not found",
+  "FAILED TO CREATE Question":"Failed to create question ",
+  "OPTION_NOT_FOUND":"Option not found",
+  "RESPONSE_NOT_FOUND":"Response not found"
+
+}
+

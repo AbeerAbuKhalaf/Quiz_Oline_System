@@ -14,12 +14,12 @@ import {
 import { Response } from 'src/responses/response.entity';
 import { Option } from 'src/options/option.entity';
 import { Score } from 'src/scores/score.entity';
-import { BaseEntity } from 'src/common/base.entity';
+import { BaseEntity } from 'src/common/base.entity'; //For inheritance 
 
 @Entity('users')
-export class User extends BaseEntity {
-  //@PrimaryGeneratedColumn('uuid')
- // id: string;
+export class User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ name: 'username', unique: true, type: 'varchar' })
   username: string;
@@ -33,19 +33,25 @@ export class User extends BaseEntity {
   @Column({ name: 'role', type: 'enum', enum: ['student', 'admin'] })
   role: 'student' | 'admin';
 
-  /*@CreateDateColumn({ name: 'created_at', type: 'timestamp' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   created_at: Date;
+  
+  @Column()
+  created_by: string;
+
+  @Column()
+  updated_by: string;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'created_by' })
-  created_by: User;
+  created_bby: User;
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updated_at: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'updated_by' })
-  updated_by: User;*/
+  updated_bby: User;
 
   @OneToMany(() => Quizze, (quiz) => quiz.createdBy)
   createdQ: Quizze[];

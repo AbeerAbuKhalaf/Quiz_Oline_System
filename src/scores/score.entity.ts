@@ -15,7 +15,7 @@ export class Score {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'user_id' })
+  @Column({ name: 'user_id', length: 255 })
   user_id: string;
 
   @ManyToOne(() => User, (user) => user.scores)

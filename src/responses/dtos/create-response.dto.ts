@@ -19,4 +19,11 @@ export class CreateResponseDto {
   selected_option_id: string;
 
   // You can include additional optional fields if needed, such as created_by or updated_by.
+  @IsUUID()
+  @IsNotEmpty()
+  created_by: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  updated_by: string;
 }

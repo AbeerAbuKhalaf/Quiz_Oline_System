@@ -11,11 +11,16 @@ import { JwtModule } from '@nestjs/jwt';
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: 'secret', // Your JWT secret key
-      // Add other JWT options here if needed
       signOptions: { expiresIn: '1d' }, // Token expiration time
     }),
   ],
-  providers: [UsersService, AuthService],
+  providers: [
+    UsersService,
+    AuthService,
+    
+  ], // AuthService is registered here
   controllers: [UsersController],
+  exports: [AuthService],
+  // AuthService exported so other modules can use it
 })
 export class UsersModule {}

@@ -1,9 +1,12 @@
-import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength,IsUUID } from 'class-validator';
+
+
+
+ import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength, IsUUID, } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
   @IsUUID()
-  id:string;
+  id: string;
 
   @IsString()
   @IsNotEmpty()
@@ -21,4 +24,13 @@ export class CreateUserDto {
   @IsEnum(['student', 'admin'])
   @IsNotEmpty()
   role: 'student' | 'admin';
+
+  @IsUUID()
+  @IsNotEmpty()
+  created_by: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  updated_by: string;
 }
+
